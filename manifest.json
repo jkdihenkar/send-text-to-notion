@@ -2,9 +2,9 @@
   "name": "Send Text to Notion",
   "description": "Sends selected text to Notion for note-taking!",
   "version": "0.1",
-  "manifest_version": 3,
+  "manifest_version": 2,
   "background": {
-    "service_worker": "background.js"
+    "scripts": ["background.js"]
   },
   "commands": {
       "send-to-notion-default": {
@@ -17,7 +17,7 @@
   },
   "permissions": [
     "storage", "activeTab", "contextMenus",
-    "https://api.notion.com/**"
+    "https://api.notion.com/*"
   ],
   "icons": {
     "16": "/images/get_started16.png",
