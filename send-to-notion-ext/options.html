@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <title>
+    Add Notion Token
+  </title>
+  <body>
+
+    Note: 
+    <pre>
+    * Head to notion integration page - https://www.notion.so/my-integrations and configure the integration
+    * Copy the Token into the "Notion Token" Field
+    * Go to notion and create a page where you want to send notes to.
+    * Copy the Page-ID from the URL and put it into "Default Page"
+    </pre>
+    <br>
+    Notion Token:
+    <input type="password" id="notionToken">
+
+    <br>
+    Default page:
+    <input type="text" id="notionPage"
+    
+    <br>
+    <button id="save">Save</button>    
+    <br> 
+    Msg :: <div id="status"></div>
+    <script src="options.js"></script>
+  </body>
+</html>
