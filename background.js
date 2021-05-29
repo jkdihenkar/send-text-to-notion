@@ -6,8 +6,7 @@ chrome.commands.onCommand.addListener(function(command, tab) {
   console.log('Command:', command, "Tab:", tab);
 
   if(command == "send-to-notion-default") {
-    console.log("Hit command default ... URL ::", tab['url']);
-    // does nothing yet
+    console.log("TODO: implement later");
   }
 });
 
@@ -38,37 +37,39 @@ function send_to_notion(info, tab) {
     xhttp.setRequestHeader('Authorization', "Bearer " + token);
     xhttp.send();
     
+    var writeData = {
+            "children": [
+              {
+                "object": "block",
+                "type": "paragraph",
+                "paragraph": {
+                  "text": [
+                    {
+                      "type": "text",
+                      "text": {
+                        "content": text + " - "
+                      }
+                    },
+                    {
+                      "type": "text",
+                      "text": {
+                        "content": "[ clipped from ]",
+                        "link": { "url": contextTabUrl }
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
 
-        // writeData = {
-        //         "children": [
-        //             {
-        //                 "object": "block",
-        //                 "type": "paragraph",
-        //                 "paragraph": {
-        //                     "text": [
-        //                         {
-        //                             "type": "text",
-        //                             "text": {
-        //                                 "content": text,
-        //                                 "link": { "url": contextTabUrl }
-        //                             }
-        //                         }
-        //                     ]
-        //                 }
-        //             }
-        //         ]
-        //     }
-        // fetch('https://api.notion.com/v1/blocks/c28a9b7af9904e3089587ab665999556/children', {
-        //     method: 'PATCH',
-        //     mode: "no-cors",
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         'Notion-Version': '2021-05-13',
-        //         'Authorization': "Bearer " + token
-        //     },
-        //     body: JSON.stringify(writeData)
-        // })
-        //     .then(response => response.json())
-        //     .then(data => console.log(data));
+    var xhttp = new XMLHttpRequest();
+    xhttp.addEventListener("load", reqListener);
+    xhttp.open("PATCH", "https://api.notion.com/v1/blocks/" + page + "/children");
+    xhttp.setRequestHeader('Content-Type', "application/json");
+    xhttp.setRequestHeader('Notion-Version', '2021-05-13');
+    xhttp.setRequestHeader('Authorization', "Bearer " + token);
+    xhttp.send(JSON.stringify(writeData));
+    
     });
 }
